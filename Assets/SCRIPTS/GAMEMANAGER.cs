@@ -5,34 +5,51 @@ using UnityEngine.UI;
 using System.Linq;
 public class GAMEMANAGER : MonoBehaviour
 {
-    public string NAME;
-    public GameObject InputField;
-    public GameObject DISPLAY;
-    public Text Result;
+    public List<int> INPUT;
+    public Text EnteredArray,Result;
     int TotalWater = 0;
 
-    public List<int> INPUT;
 
 
     [Header("SORTING A WORDS")]
     public string GivenName;
-
+    public GameObject SortingInput;
+    public Text SortingResult;
 
     [Header("CAPITAL TO SMALL")]
 
-    public string ALPHABETS;
+    public string LETTERS;
+    public string LETTERSRESULT;
 
-   //public char CAPS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    string CAPS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+     string SMALL = "abcdefghijklmnopqrstuvwxyz";
+
+    public char[] capsCHAR;
+    public char[] smallCHAR;
     void Start()
     {
         maxWater();
         SortTheName();
+        capsCHAR = CAPS.ToCharArray();
+        smallCHAR = SMALL.ToCharArray();
         convertingCaptoSmall();
+
+
     }
 
     public  void maxWater()
     {
-
+        for (int i = 0; i < INPUT.Count; i++)
+        {
+            if (i < INPUT.Count - 1)
+            {
+                EnteredArray.text = EnteredArray.text + INPUT[i] + ",";
+            }
+            else
+            {
+                EnteredArray.text = EnteredArray.text + INPUT[i];
+            }
+        }
        
 
         for (int i = 1; i < INPUT.Count - 1; i++)
@@ -55,13 +72,14 @@ public class GAMEMANAGER : MonoBehaviour
             // Update maximum water value
             TotalWater += Mathf.Min(left, right) - INPUT[i];
         }
-        Result.text = TotalWater.ToString();
+        Result.text ="TRAPPED WATER-"+ TotalWater.ToString();
     }
 
     public void SortTheName()
     {
-       
-            char temp;
+        GivenName = SortingInput.GetComponent<InputField>().text;
+
+        char temp;
            
             char[] charstr = GivenName.ToCharArray();
             for (int i = 1; i < charstr.Length; i++)
@@ -78,10 +96,23 @@ public class GAMEMANAGER : MonoBehaviour
             }
         string result = new string(charstr);
         print(result);
-    }
-    
-    void convertingCaptoSmall()
-    {
+     SortingResult.text=result;
 
+}
+
+void convertingCaptoSmall()
+    {
+        char[] dummy = LETTERS.ToCharArray();
+        for (int i = 0; i <LETTERS.Length ; i++)
+        {
+            for (int j = 0; j < capsCHAR.Length; j++)
+            {
+                if (LETTERS[i] == capsCHAR[j])
+                {
+                    dummy[i] = smallCHAR[j];
+                }
+            }
+        }
+        LETTERSRESULT = new string(dummy);
     }
 }
