@@ -1,14 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GAMEPLAY : MonoBehaviour
 {
     public GameObject Player;
     public int TotalPlayers;
+    public GameObject INPUTFIELD;
     void Start()
     {
+        //SetPlayers();
+    }
+
+    public void SET()
+    {
+        string str = INPUTFIELD.GetComponent<InputField>().text.ToString();
+        TotalPlayers = int.Parse(str);
+        INPUTFIELD.SetActive(false);
+        if (TotalPlayers > 50)
+        {
+            TotalPlayers = 50;
+        }
         SetPlayers();
+
     }
     int k = 0,j=0;
     public void SetPlayers()

@@ -17,14 +17,13 @@ public class Players : MonoBehaviour
         Timer = Random.Range(Mintime, Maxtime);
         //StartCoroutine(MOVE());
     }
-
+    float randomvalu = 0;
     private void Update()
     {
         if (Timer <= 0)
         {
             Speed = Random.Range(MinSpeed, MaxSpeed);
             Timer = Random.Range(Mintime, Maxtime);
-
         }
         else
         {
@@ -33,7 +32,9 @@ public class Players : MonoBehaviour
         }
         if (transform.position.x >= 21)
         {
-            transform.position = new Vector3(-21, transform.position.y, transform.position.z);
+            randomvalu = Random.Range(-4.9f, 4.9f);
+
+            transform.position = new Vector3(-21, transform.position.y, randomvalu);
         }
     }
     IEnumerator MOVE()
